@@ -1,4 +1,4 @@
-package quicgosdk
+package quicgo
 
 import (
 	"context"
