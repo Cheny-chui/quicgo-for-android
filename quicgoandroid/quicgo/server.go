@@ -14,13 +14,27 @@ import (
 var listener *quic.Listener
 
 func Listen(addr string) string {
-	tempListener, err := quic.ListenAddr(addr, generateTLSConfig(), nil)
+	config := quic.Config{
+		EnableDatagrams: true,
+	}
+	tempListener, err := quic.ListenAddr(addr, generateTLSConfig(), &config)
 	if err != nil {
 		return myMarshal(ErrorReturn{Error: err.Error()})
 	} else {
 		listener = &tempListener
 		return ""
 	}
+}
+
+func Close() string {
+	if listener == nil {
+		return myMarshal(ErrorReturn{Error: "Server MUST listen first before close."})
+	}
+	err := (*listener).Close()
+	if err != nil {
+		return myMarshal(ErrorReturn{Error: err.Error()})
+	}
+	return myMarshal(ErrorReturn{Error: ""})
 }
 
 func Accept() string {

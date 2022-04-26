@@ -11,7 +11,10 @@ func Dial(addr string) string {
 		InsecureSkipVerify: true,
 		NextProtos:         []string{"quic-example"},
 	}
-	conn, err := quic.DialAddr(addr, tlsConf, nil)
+	config := quic.Config{
+		EnableDatagrams: true,
+	}
+	conn, err := quic.DialAddr(addr, tlsConf, &config)
 	if err != nil {
 		return myMarshal(ConnectReturn{Error: err.Error(), ConnectID: 0})
 	} else {
@@ -23,7 +26,7 @@ func Dial(addr string) string {
 func OpenStreamSync(connectionID int) string {
 	conn := connections[connectionID]
 	if conn == nil {
-		return myMarshal(ConnectReturn{Error: "Server MUST listen first before accept.", ConnectID: 0})
+		return myMarshal(StreamReturn{Error: "Server MUST listen first before accept.", StreamID: 0})
 	}
 	stream, err := (*conn).OpenStreamSync(context.Background())
 	if err != nil {
