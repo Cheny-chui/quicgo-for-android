@@ -11,39 +11,42 @@ import (
 	"math/big"
 )
 
-var listener quic.Listener
+var listener *quic.Listener
 
 func Listen(addr string) string {
 	tempListener, err := quic.ListenAddr(addr, generateTLSConfig(), nil)
 	if err != nil {
-		return myMarshal(ListenReturn{Error: err.Error()})
+		return myMarshal(ErrorReturn{Error: err.Error()})
 	} else {
-		listener = tempListener
+		listener = &tempListener
 		return ""
 	}
 }
 
 func Accept() string {
 	if listener == nil {
-		return myMarshal(AcceptReturn{Error: "Server MUST listen first before accept", ConnectID: 0})
+		return myMarshal(ConnectReturn{Error: "Server MUST listen first before accept.", ConnectID: 0})
 	}
-	conn, err := listener.Accept(context.Background())
+	conn, err := (*listener).Accept(context.Background())
 	if err != nil {
-		return myMarshal(AcceptReturn{Error: err.Error(), ConnectID: 0})
+		return myMarshal(ConnectReturn{Error: err.Error(), ConnectID: 0})
 	} else {
-		Connections[len(Connections)+1] = conn
-		return myMarshal(AcceptReturn{Error: "", ConnectID: len(Connections)})
+		connections[len(connections)+1] = &conn
+		return myMarshal(ConnectReturn{Error: "", ConnectID: len(connections)})
 	}
 }
 
 func AcceptStream(connectID int) string {
-	conn := Connections[connectID]
-	stream, err := conn.AcceptStream(context.Background())
+	conn := connections[connectID]
+	if conn == nil {
+		return myMarshal(StreamReturn{Error: "Can't find the target connection.", StreamID: 0})
+	}
+	stream, err := (*conn).AcceptStream(context.Background())
 	if err != nil {
-		return myMarshal(AcceptStreamReturn{Error: err.Error(), StreamID: 0})
+		return myMarshal(StreamReturn{Error: err.Error(), StreamID: 0})
 	} else {
-		Streams[len(Streams)+1] = stream
-		return myMarshal(AcceptStreamReturn{Error: "", StreamID: len(Streams)})
+		streams[len(streams)+1] = &stream
+		return myMarshal(StreamReturn{Error: "", StreamID: len(streams)})
 	}
 
 }
