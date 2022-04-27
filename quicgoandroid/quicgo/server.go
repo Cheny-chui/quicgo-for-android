@@ -19,7 +19,7 @@ func Listen(addr string) string {
 	}
 	tempListener, err := quic.ListenAddr(addr, generateTLSConfig(), &config)
 	if err != nil {
-		return myMarshal(ErrorReturn{Error: err.Error()})
+		return myMarshal(errorReturn{Error: err.Error()})
 	} else {
 		listener = &tempListener
 		return ""
@@ -28,39 +28,39 @@ func Listen(addr string) string {
 
 func Close() string {
 	if listener == nil {
-		return myMarshal(ErrorReturn{Error: "Server MUST listen first before close."})
+		return myMarshal(errorReturn{Error: "Server MUST listen first before close."})
 	}
 	err := (*listener).Close()
 	if err != nil {
-		return myMarshal(ErrorReturn{Error: err.Error()})
+		return myMarshal(errorReturn{Error: err.Error()})
 	}
-	return myMarshal(ErrorReturn{Error: ""})
+	return myMarshal(errorReturn{Error: ""})
 }
 
 func Accept() string {
 	if listener == nil {
-		return myMarshal(ConnectReturn{Error: "Server MUST listen first before accept.", ConnectID: 0})
+		return myMarshal(connectReturn{Error: "Server MUST listen first before accept.", ConnectID: 0})
 	}
 	conn, err := (*listener).Accept(context.Background())
 	if err != nil {
-		return myMarshal(ConnectReturn{Error: err.Error(), ConnectID: 0})
+		return myMarshal(connectReturn{Error: err.Error(), ConnectID: 0})
 	} else {
 		connections[len(connections)+1] = &conn
-		return myMarshal(ConnectReturn{Error: "", ConnectID: len(connections)})
+		return myMarshal(connectReturn{Error: "", ConnectID: len(connections)})
 	}
 }
 
 func AcceptStream(connectID int) string {
 	conn := connections[connectID]
 	if conn == nil {
-		return myMarshal(StreamReturn{Error: "Can't find the target connection.", StreamID: 0})
+		return myMarshal(streamReturn{Error: "Can't find the target connection.", StreamID: 0})
 	}
 	stream, err := (*conn).AcceptStream(context.Background())
 	if err != nil {
-		return myMarshal(StreamReturn{Error: err.Error(), StreamID: 0})
+		return myMarshal(streamReturn{Error: err.Error(), StreamID: 0})
 	} else {
 		streams[len(streams)+1] = &stream
-		return myMarshal(StreamReturn{Error: "", StreamID: len(streams)})
+		return myMarshal(streamReturn{Error: "", StreamID: len(streams)})
 	}
 
 }

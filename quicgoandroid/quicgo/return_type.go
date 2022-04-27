@@ -10,11 +10,11 @@ type qReturn interface {
 	marshal() string
 }
 
-type ErrorReturn struct {
+type errorReturn struct {
 	Error string `json:"error"`
 }
 
-func (listenReturn ErrorReturn) marshal() string {
+func (listenReturn errorReturn) marshal() string {
 	b, err := json.Marshal(listenReturn)
 	if err != nil {
 		return err.Error()
@@ -22,12 +22,12 @@ func (listenReturn ErrorReturn) marshal() string {
 	return string(b)
 }
 
-type ConnectReturn struct {
+type connectReturn struct {
 	ConnectID int    `json:"connect_id"`
 	Error     string `json:"error"`
 }
 
-func (acceptReturn ConnectReturn) marshal() string {
+func (acceptReturn connectReturn) marshal() string {
 	b, err := json.Marshal(acceptReturn)
 	if err != nil {
 		return err.Error()
@@ -35,12 +35,12 @@ func (acceptReturn ConnectReturn) marshal() string {
 	return string(b)
 }
 
-type StreamReturn struct {
+type streamReturn struct {
 	StreamID int    `json:"stream_id"`
 	Error    string `json:"error"`
 }
 
-func (acceptStreamReturn StreamReturn) marshal() string {
+func (acceptStreamReturn streamReturn) marshal() string {
 	b, err := json.Marshal(acceptStreamReturn)
 	if err != nil {
 		return err.Error()
@@ -48,12 +48,12 @@ func (acceptStreamReturn StreamReturn) marshal() string {
 	return string(b)
 }
 
-type DataReturn struct {
+type dataReturn struct {
 	Data  string `json:"data"`
 	Error string `json:"error"`
 }
 
-func (dataReturn DataReturn) marshal() string {
+func (dataReturn dataReturn) marshal() string {
 	b, err := json.Marshal(dataReturn)
 	if err != nil {
 		return err.Error()
