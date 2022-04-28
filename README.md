@@ -17,4 +17,4 @@ quicgoandroid文件夹下，使用go对quic-go的API进行封装以符合gomobil
 ### MainActivity
 实现了一个echo demo
 # API的使用
-详见[文档]()
+详见[文档](https://github.com/Cheny-chui/quicgo-for-android/blob/main/doc/API.md)
