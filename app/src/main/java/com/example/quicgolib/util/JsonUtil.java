@@ -1,5 +1,7 @@
 package com.example.quicgolib.util;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -45,7 +47,7 @@ public class JsonUtil {
     public void fromError(String jsonData){
         String err = gson.fromJson(jsonData,ErrorReturn.class).error;
         if(!err.equals("")){
-            Logger.e(TAG,err);
+            Log.e(TAG,err);
             System.exit(1);
         }
     }
@@ -53,7 +55,7 @@ public class JsonUtil {
     public long fromConnect(String jsonData){
         ConnectReturn connectReturn = gson.fromJson(jsonData,ConnectReturn.class);
         if(!connectReturn.error.equals("")){
-            Logger.e(TAG,connectReturn.error);
+            Log.e(TAG,connectReturn.error);
             System.exit(1);
         }
         return connectReturn.connectID;
@@ -62,7 +64,7 @@ public class JsonUtil {
     public long fromStream(String jsonData){
         StreamReturn streamReturn = gson.fromJson(jsonData,StreamReturn.class);
         if(!streamReturn.error.equals("")){
-            Logger.e(TAG, streamReturn.error);
+            Log.e(TAG, streamReturn.error);
             System.exit(1);
         }
         return streamReturn.streamID;
@@ -71,7 +73,7 @@ public class JsonUtil {
     public String fromData(String jsonData){
         DataReturn dataReturn = gson.fromJson(jsonData, DataReturn.class);
         if(!dataReturn.error.equals("")){
-            Logger.e(TAG, dataReturn.error);
+            Log.e(TAG, dataReturn.error);
             System.exit(1);
         }
         return dataReturn.data;

@@ -17,10 +17,6 @@ public class QuicGoServerEngine {
     }
 
     public Connect accept(){
-        return new Connect(JsonUtil.jsonUtil.fromConnect(quicgo.Quicgo.accept()));
-    }
-
-    public Stream acceptStream(long connectID){
-        return new Stream(JsonUtil.jsonUtil.fromStream(quicgo.Quicgo.acceptStream(connectID)));
+        return new ServerConnect(JsonUtil.jsonUtil.fromConnect(quicgo.Quicgo.accept()));
     }
 }

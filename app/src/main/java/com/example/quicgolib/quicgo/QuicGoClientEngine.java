@@ -12,10 +12,6 @@ public class QuicGoClientEngine {
     }
 
     public Connect dial(){
-        return new Connect(JsonUtil.jsonUtil.fromConnect(quicgo.Quicgo.dial(address)));
-    }
-
-    public Stream openStreamSync(long connectID){
-        return new Stream(JsonUtil.jsonUtil.fromStream(quicgo.Quicgo.openStreamSync(connectID)));
+        return new ClientConnnect(JsonUtil.jsonUtil.fromConnect(quicgo.Quicgo.dial(address)));
     }
 }

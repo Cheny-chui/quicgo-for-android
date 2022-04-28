@@ -10,10 +10,10 @@ public class Stream {
     }
 
     public void send(String message){
-        JsonUtil.jsonUtil.fromError(quicgo.Quicgo.sendMessage(streamID,message));
+        JsonUtil.jsonUtil.fromError(quicgo.Quicgo.writeStream(streamID,message));
     }
 
     public String get(){
-        return JsonUtil.jsonUtil.fromData(quicgo.Quicgo.receiveMessage(streamID));
+        return JsonUtil.jsonUtil.fromData(quicgo.Quicgo.readStream(streamID));
     }
 }

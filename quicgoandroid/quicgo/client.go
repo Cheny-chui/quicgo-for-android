@@ -16,23 +16,23 @@ func Dial(addr string) string {
 	}
 	conn, err := quic.DialAddr(addr, tlsConf, &config)
 	if err != nil {
-		return myMarshal(connectReturn{Error: err.Error(), ConnectID: 0})
+		return myMarshal(ConnectReturn{Error: err.Error(), ConnectID: 0})
 	} else {
 		connections[len(connections)+1] = &conn
-		return myMarshal(connectReturn{Error: "", ConnectID: len(connections)})
+		return myMarshal(ConnectReturn{Error: "", ConnectID: len(connections)})
 	}
 }
 
 func OpenStreamSync(connectionID int) string {
 	conn := connections[connectionID]
 	if conn == nil {
-		return myMarshal(streamReturn{Error: "Server MUST listen first before accept.", StreamID: 0})
+		return myMarshal(StreamReturn{Error: "Server MUST listen first before accept.", StreamID: 0})
 	}
 	stream, err := (*conn).OpenStreamSync(context.Background())
 	if err != nil {
-		return myMarshal(streamReturn{Error: err.Error(), StreamID: 0})
+		return myMarshal(StreamReturn{Error: err.Error(), StreamID: 0})
 	} else {
 		streams[len(streams)+1] = &stream
-		return myMarshal(streamReturn{Error: "", StreamID: len(streams)})
+		return myMarshal(StreamReturn{Error: "", StreamID: len(streams)})
 	}
 }
