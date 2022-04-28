@@ -11,7 +11,7 @@
 
 ## Server
 
-### L**isten**
+### Listen
 
 - 获取quic服务器的listener进行listen
 - 入参：
@@ -97,7 +97,7 @@
 
 - Client和Server的共用函数
 
-### **ReadStream**
+### ReadStream
 
 - 从Stream中读数据
 - 输入：streamID
@@ -111,7 +111,7 @@
     ```
 
 
-### **WriteStream**
+### WriteStream
 
 - 从Stream中读数据
 - 输入：
@@ -126,7 +126,7 @@
     ```
 
 
-### **ReceiveMessage**
+### ReceiveMessage
 
 - 从Connect中读数据报
 - 输入：connectID
@@ -140,7 +140,7 @@
     ```
 
 
-### **SendMessage**
+### SendMessage
 
 - 从Connect中发送数据报
 - 输入
