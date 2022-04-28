@@ -17,16 +17,16 @@
 - 入参：
     - addr：地址字符串
 
-    ```json
+    ```
     "host:port"
     ```
 
 - 返回值：
     - 有错误返回JSON格式的error，无错误返回空字符串
 
-        ```json
+        ```
         {
-        	error: string,
+            error： string
         }
         ```
 
@@ -37,7 +37,7 @@
 - 返回值：
     - connectID从1开始，若创建连接失败则为0
 
-        ```json
+        ```
         {
         	error：string,
         	connect_id: int,
@@ -53,7 +53,7 @@
 - 返回值：
     - streamID与connectID类似，从1开始，失败为0
 
-        ```json
+        ```
         {
         	error：string,
         	stream_id: int,
@@ -70,7 +70,7 @@
     - addr
 - 返回值
 
-    ```json
+    ```
     {
     	error：string,
     	connect_id: int,
@@ -85,7 +85,7 @@
     - connectionID
 - 返回值
 
-    ```json
+    ```
     {
     	error：string,
     	stream_id: int,
@@ -103,7 +103,7 @@
 - 输入：streamID
 - 返回值
 
-    ```json
+    ```
     {
     	error: string
     	data: string
@@ -119,7 +119,7 @@
     - message
 - 返回值
 
-    ```json
+    ```
     {
     	error: string
     }
@@ -132,7 +132,7 @@
 - 输入：connectID
 - 返回值
 
-    ```json
+    ```
     {
     	error: string
     	data: string
@@ -148,7 +148,7 @@
     - message
 - 返回值
 
-    ```json
+    ```
     {
     	error: string
     }
